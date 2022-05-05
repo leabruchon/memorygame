@@ -113,7 +113,6 @@ Style loader s'ajoute à la configuration webpack et permet d'injecter du CSS da
 
 Ce préfixe devant un nom de fichier scss rend le fichier partiel. Cela permet de séparer le style en différentes parties logiques : par exemple un fichier pour les couleurs, un pour les polices etc. Tout est ensuite compilé dans un seul fichier. 
 
-## Step 9 - Additionnal feature
 
 
 
