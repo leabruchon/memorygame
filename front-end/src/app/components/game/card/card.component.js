@@ -1,12 +1,10 @@
-// TODO Step 7 import { Component } from "../../../utils/component";
-// TODO Step 7 import template from  "./card.component.html"
+import { Component } from "../../../utils/component";
+import "./card.component.scss";
+import template from "./card.component.html";
 
-(function () {
-  // TODO Step 7 remove this closure
-
-  /* class CardComponent constructor */
-  class CardComponent {
+  export class CardComponent extends Component {
     constructor(id) {
+      super("card");
       // is this card flipped ?
       this._flipped = false;
 
@@ -15,22 +13,19 @@
 
       this._id = id;
 
-      this._imageElt = this.getElement().querySelector(".card-wrapper");
-      // TODO Step 7: Update the path for images with 'src/app/components/game/card/assets/card***'
+      this._imageElt = super.getElement().querySelector(".card-wrapper");
+
       this._imageElt.querySelector("img.front-face").src =
-      `./card/assets/card-${this._id}.png`;
+      require(`./assets/card-${this._id}.png`);
       this._imageElt.querySelector("img.back-face").src =
-        "./card/assets/back.png";
+        require("./assets/back.png");
     }
 
-    getElement() {
-      if (!this._elt) {
-        this._elt = document
-          .getElementById("card-template")
-          .content.cloneNode(true).firstElementChild;
-      }
-    return this._elt;
+    getTemplate() {
+      return template;
     }
+
+  
 
     flip() {
       this._imageElt.classList.toggle("flip");
@@ -46,10 +41,3 @@
     }
 
   }
-
-  // put component in global scope, to be runnable right from the HTML.
-  // TODO Step 7 export CardComponent
-  window.CardComponent = CardComponent;
-})();
-
-

@@ -1,9 +1,7 @@
-/*****
- * GLOBAL STYLE
- */
+@import "../styles/_colors.scss";
 
 body {
-    background-color: #F5F5F5;
+    background-color: $primary-background;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -18,12 +16,11 @@ body > main {
     overflow: auto;
 }
 
-/* global style */
 .bg-primary * {
-    color: #cb2468;
+    color: $primary-txt;
 }
 
 .bg-dark * {
-    color: #FCFCFC;
+    color: $primary-txt;
 }
 

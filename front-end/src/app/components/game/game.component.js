@@ -1,19 +1,17 @@
-// TODO Step 6 import { parseUrl } from '../../utils/utils.js';
-// TODO Step 7 import { Component } from "../../utils/component";
-// TODO Step 7 import template from "./game.component.html"
+import { parseUrl } from "../../utils/utils";
+import { Component } from "../../utils/component";
+import { CardComponent } from "./card/card.component";
+import template from "./game.component.html";
 
-(function () {
-  // TODO Step 6 remove this closure
   let environment = {
     api: {
       host: "http://localhost:8081",
     },
   };
 
-  // TODO Step 3.1 create a class
-  /* class GameComponent constructor */
-  class GameComponent {
+  export class GameComponent extends Component {
     constructor(){
+      super("game");
       // gather parameters from URL
       let params = parseUrl();
 
@@ -24,11 +22,15 @@
       this._matchedPairs = 0;
     }
 
-    init(){
+    getTemplate() {
+      return template;
+    }
+
+    async init(){
       // fetch the cards configuration from the server
-      this.fetchConfig(
-        (config) => {
-          // TODO Step 3.2: use arrow function
+      const config = await this.fetchConfig()
+        .then((config) => {
+
           this._config = config;
 
           // create a card out of the config
@@ -37,7 +39,7 @@
           this._config.ids.map((id) => this._cards.push(new CardComponent(id)))
 
           this._boardElement = document.querySelector(".cards");
-
+        
           this._cards.forEach((element)=>{
 
               let card = element;
@@ -57,14 +59,13 @@
     start(){
       this._startTime = Date.now();
       let seconds = 0;
-      // TODO Step 3.2: use template literals (backquotes)
+
+      
       document.querySelector("nav .navbar-title").textContent =
       `Player:${this._name}. Elapsed time:${seconds++}`;
 
       this._timer = setInterval(
         () => {
-          // TODO Step 3.2: use arrow function
-          // TODO Step 3.2: use template literals (backquotes)
           document.querySelector("nav .navbar-title").textContent =
           `Player:${this._name}. Elapsed time:${seconds++}`;
         },
@@ -72,51 +73,20 @@
       );
     }
 
-    fetchConfig(cb){
-      let xhr =
-      typeof XMLHttpRequest != "undefined"
-        ? new XMLHttpRequest()
-        : new ActiveXObject("Microsoft.XMLHTTP");
-
-      // TODO Step 3.2 use template literals
-      xhr.open("get", `${environment.api.host}/board?size=${this._size}`, true);
-
-      // TODO Step 3.2 use arrow function
-      xhr.onreadystatechange = () => {
-        let status;
-        let data;
-        // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-readystate
-        if (xhr.readyState == 4) {
-          // `DONE`
-          status = xhr.status;
-          if (status == 200) {
-            data = JSON.parse(xhr.responseText);
-            cb(data);
-          } else {
-            throw new Error(status);
-          }
-        }
-      };
-      xhr.send();
+    async fetchConfig() {
+      return fetch(`${environment.api.host}/board?size=${this.  _size}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .catch((error) => console.log("Error while fetching   config: ", error));
     }
 
-    gotoScore(){
-      let timeElapsedInSeconds = Math.floor(
+    gotoScore() {
+      const timeElapsedInSeconds = Math.floor(
         (Date.now() - this._startTime) / 1000
       );
-      clearInterval(this._timer);
-  
-      setTimeout(
-        () => {
-          // TODO Step 3.2: use arrow function.
-          // TODO Step 1: replace with '../score/score.component.html?name=...' location
-          // TODO Step 3.2: use template literals (backquotes)
-          // TODO Step 7: change path to: `score?name=${this._name}&size=${this._size}'&time=${timeElapsedInSeconds}`;
-          window.location =
-            `../score/score.component.html?name=${this._name}&size=${this._size}&time=${timeElapsedInSeconds}`;
-        },
-        750
-      ); // TODO Step 3.2: Why bind(this)?
+    
+      setTimeout(() => window.location.hash = `score?name=${this._name}&size=${this._size}'&time=${timeElapsedInSeconds}`, 750);
     }
 
     _flipCard(card){
@@ -155,7 +125,6 @@
   
           // cards did not match
           // wait a short amount of time before hiding both cards
-          // TODO Step 3.2 use arrow function
           setTimeout(
             () => {
               // hide the cards
@@ -172,26 +141,3 @@
       }
     }
   }
-
-  // TODO Step 6: Move this method to utils.js
-  function parseUrl() {
-    let url = window.location;
-    let query = url.href.split("?")[1] || "";
-    let delimiter = "&";
-    let result = {};
-
-    let parts = query.split(delimiter);
-    // TODO Step 3.3: Use Array.map() & Array.reduce()
-    return parts.map((items)=>{
-      return items.split("=")
-    }).reduce((result,kv)=>{
-      result[kv[0]] = kv[1]
-      return result
-    },{});
-  
-  }
-
-  // put component in global scope, to be runnable right from the HTML.
-  // TODO Step 7: export GameComponent
-  window.GameComponent = GameComponent;
-})();

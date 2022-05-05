@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>MÈME ory</title>
-    <link rel="stylesheet" href="./welcome.component.css">
-    <link rel="stylesheet" href="../../styles/style.css">
-    <link rel="stylesheet" href="../../styles/bootstrap.css">
-    <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.css" />
-</head>
-
-  <body class="d-flex flex-column">
-    <nav class="navbar bg-primary mb-3 shadow">
-      <a class="navbar-brand d-flex" href="/src">
-        <img
-          class="d-inline-block align-top"
-          src="../../../assets/logo_take_my_money.png"
-          alt="logo"
-        />
-        <span class="align-self-center m-2">MÈME ory</span>
-      </a>
-      <span class="navbar-title"></span>
-    </nav>
-
-    <div class="container-fluid flex-grow-1 overflow-auto">
-      <!-- TODO Step 7: Keep only this element -->
       <main class="welcome-cmp">
         <div class="container">
           <form id="start-form" class="form-signin card" novalidate>
@@ -86,17 +60,3 @@
         </div>
       </main>
 
-      <footer class="navbar position-absolute fixed-bottom bg-dark">
-        <span>&copy The MEME ory corporation | 2021</span>
-      </footer>
-    </div>
-  </body>
-
-  <!-- link to welcome controller -->
-  <!-- TODO Step 7: remove all <script> tags -->
-  <script src="./welcome.component.js"></script>
-  <script>
-    // execute the controller
-    var wc = new WelcomeComponent().init();
-  </script>
-</html>
