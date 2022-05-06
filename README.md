@@ -49,6 +49,7 @@ Une devDependency est une dépendance qui n’est utilisée que pendant le déve
 
 - Can you think of at least 2 things that are possible with Java classes, but cannot be done with ES6 classes?
 
+En javascript, on ne peut pas faire de la surcharge de méthode, c'est à dire d'avoir dans une classe plusieurs méthodes portant le même nom mais ayant des arugments différents. On ne peut également pas créer un lien d'héritage en un objet et une classe, sauf en utilisant: Object.setPrototypeOf(). 
 
 
 ### 3.2 ES6 Arrow functions
