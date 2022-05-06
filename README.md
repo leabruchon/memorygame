@@ -13,7 +13,8 @@ page de score : 6 files, 123ms
 
 - Component-oriented programming for the web is considered more maintainable. Why?
 
-La programmation orientée composants est plus facilement maintenable 
+La programmation orientée composants est plus facilement maintenable car on retrouve tous les fichiers liés à un composant (js, css, html...) dans le même dossier ou fichier ce qui permet de rapidement y faire des modifications. De plus, si on change quelque chose sur un composant on ne modifie qu'une fois et il s'actualise sur toutes les pages où il est utilisé, ce qui permet de gagner beaucoup de temps.  
+
 - If you look at the source code, every JS file wraps its code into a closure:
 Try to remove the 2 closures from both card.component.js & game.component.js. What happens? Why?
 Once figured out, remove the extra variable that makes the code to crash.
@@ -33,6 +34,9 @@ Le package-lock.json est modifié/généré quand on modifie package.json, c’e
 
 - By convention, all NPM dependencies use a 3-digit format for version numbers. How do you call this? Can you explain the meaning of the ^ symbol next to the bootstrap version?
 
+Le premier chiffre correspond au numéro de version, le deuxième à une correction de beugs et le troisième à l'ajout de nouvelles fonctionnalités.
+Quand on écrit ^, cela siginifie qu'on fait des mises à jour ne modifiant pas le nombre le plus à gauche différent de 0. Par exemple, si on écrit ^1.13.0, on obtiendra des corrections du type 1.13.2, 1.14.1, mais le 1 à gauche ne sera pas remplacé par un 2. 
+
 ### 2.3 NPM Scripts
 
 - What is a devDependency exactly? What are the differences with a dependency?
@@ -44,6 +48,8 @@ Une devDependency est une dépendance qui n’est utilisée que pendant le déve
 ### 3.1 ES6 classes
 
 - Can you think of at least 2 things that are possible with Java classes, but cannot be done with ES6 classes?
+
+
 
 ### 3.2 ES6 Arrow functions
 
